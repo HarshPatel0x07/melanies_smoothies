@@ -28,6 +28,9 @@ if INGREDIENTS_LIST:
 
     for chosen in INGREDIENTS_LIST:
         INGREDIENTS_STRING += chosen + ' '
+        st.subheader(chosen + 'Nutrition Information')
+        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon"+chosen) 
+        fv_dt = st.dataframe(data=fruityvice_response.json(), use_container_width=True)
 
     #st.write(INGREDIENTS_STRING)
 
@@ -40,5 +43,3 @@ if INGREDIENTS_LIST:
         session.sql(my_insert_stmt).collect()
         st.success('Your Smoothie is ordered!', icon="✅")
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon") 
-st.text(fruityvice_response)
